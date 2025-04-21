@@ -1,0 +1,64 @@
+name: Build and Deploy Flask App
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-push:
+    name: 🐳 Build & Push Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔁 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🔐 Login no DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: 🏷️ Definir tags
+        id: vars
+        run: |
+          TAG=${GITHUB_REF##*/}
+          echo "tag_version=$TAG" >> $GITHUB_OUTPUT
+          echo "tag_latest=latest" >> $GITHUB_OUTPUT
+
+      - name: 📦 Build e Push da Imagem Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/plant-diseases:${{ steps.vars.outputs.tag_version }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/plant-diseases:${{ steps.vars.outputs.tag_latest }}
+
+  deploy-render:
+    name: 🚀 Deploy to Render
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📡 Chamada para Deploy no Render
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+
+  release:
+    name: 📝 Criar Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔁 Checkout
+        uses: actions/checkout@v3
+
+      - name: 📝 Gerar Release Notes
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+
