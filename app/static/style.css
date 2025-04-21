@@ -5,6 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .container {
@@ -13,10 +14,22 @@ body {
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
 }
 
 input[type="file"] {
     margin: 20px 0;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #38a169;
+    width: 100%;
 }
 
 button {
@@ -27,16 +40,39 @@ button {
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #2f855a;
 }
 
+.result {
+    margin-top: 30px;
+}
+
 img {
-    max-width: 300px;
+    max-width: 100%;
+    height: auto;
     margin-top: 20px;
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+.alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    button {
+        padding: 10px;
+    }
+}
