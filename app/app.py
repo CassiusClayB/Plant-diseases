@@ -4,9 +4,21 @@ from tensorflow.keras.preprocessing import image
 import time
 import numpy as np
 import os
+import gdown
 
 app = Flask(__name__)
-model = load_model('app/model/melhor_modelo.keras')
+
+MODEL_PATH = 'app/model/melhor_modelo.keras'
+
+# Baixa o modelo se ainda não existir
+if not os.path.exists(MODEL_PATH):
+    url = 'https://drive.google.com/uc?id=1a_NB5o0mX4ANjLkBRvXELMiZIDdoyzu9'  # ID correto do seu modelo
+    gdown.download(url, MODEL_PATH, quiet=False)
+
+# carregar o modelo baixado 
+model = load_model(MODEL_PATH)
+
+
 classes = [
     'Apple___Apple_scab',
     'Apple___Black_rot',
