@@ -5,15 +5,21 @@ import time
 import numpy as np
 import os
 import gdown
+from dotenv import load_dotenv
+
+# Carregar variáveis de ambiente do arquivo .env
+load_dotenv()
 
 app = Flask(__name__)
 
 MODEL_PATH = 'app/model/melhor_modelo.keras'
 
+# Pegar a URL do modelo da variável de ambiente
+MODEL_URL = os.getenv('MODEL_URL')
+
 # Baixa o modelo se ainda não existir
 if not os.path.exists(MODEL_PATH):
-    url = 'https://drive.google.com/uc?id=1a_NB5o0mX4ANjLkBRvXELMiZIDdoyzu9'  # ID correto do seu modelo
-    gdown.download(url, MODEL_PATH, quiet=False)
+    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
 
 # carregar o modelo baixado 
 model = load_model(MODEL_PATH)
