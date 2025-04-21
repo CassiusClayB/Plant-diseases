@@ -1,10 +1,10 @@
-from flask import Flask, request, render_template
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
 import time
 import numpy as np
 import os
 import gdown
+from flask import Flask, request, render_template
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 from dotenv import load_dotenv
 
 # Carregar variáveis de ambiente do arquivo .env
