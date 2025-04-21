@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Detector de Doenças em Plantas 🌿</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🌱 Classificador de Doenças em Plantas</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" required>
+            <button type="submit">Enviar Imagem</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>📷 Imagem Enviada:</h2>
+            <img src="{{ url_for('static', filename=image_path.split('/')[-1]) }}" alt="Imagem Enviada">
+            <h3>🌿 Classe Prevista: {{ prediction }}</h3>
+            <p>📈 Confiança: {{ confidence }}%</p>
+            <p>⏱️ Tempo de Previsão: {{ prediction_time }} segundos</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
