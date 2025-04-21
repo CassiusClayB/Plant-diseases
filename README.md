@@ -5,7 +5,7 @@ Este é um projeto de **classificação de doenças em plantas** baseado em imag
 ## 📸 Exemplo da Interface
 
 <p align="center">
-  <img src="[https://i.imgur.com/BXc81gH.png](https://drive.google.com/file/d/1h8-Lx2Lmmd5WPmnOSELoyytoTaQz-y0Y/view?usp=drive_link)" alt="Plant Classifier UI" width="600"/>
+  <img src="https://drive.google.com/file/d/1h8-Lx2Lmmd5WPmnOSELoyytoTaQz-y0Y/view?usp=drive_link" alt="Plant Classifier UI" width="600"/>
 </p>
 
 ---
