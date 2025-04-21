@@ -2,8 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detector de Doenças em Plantas 🌿</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="container">
@@ -12,6 +14,10 @@
             <input type="file" name="image" required>
             <button type="submit">Enviar Imagem</button>
         </form>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
 
         {% if prediction %}
         <div class="result">
@@ -23,6 +29,16 @@
         </div>
         {% endif %}
     </div>
+
+    <script>
+        {% if prediction %}
+            Swal.fire({
+                title: 'Previsão Concluída!',
+                text: 'A previsão foi concluída com sucesso.',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        {% endif %}
+    </script>
 </body>
 </html>
-
